@@ -28,5 +28,5 @@ This application helps to import pages from csv file
 
 ## Running Test
 - Run `docker exec -it backend sh`
-- Run `bin/console doctrine:migrations:migrate`
+- Run `bin/console --env=test doctrine:migrations:migrate`
 - Run `bin/phpunit tests`

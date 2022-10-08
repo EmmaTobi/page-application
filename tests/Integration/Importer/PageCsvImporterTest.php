@@ -50,6 +50,8 @@ class PageCsvImporterTest extends KernelTestCase
     }
 
     /**
+     * This test should only be run if you know why you should run it
+     * To run this test change access modifier to public
      * @throws ApplicationException
      */
     private function testImport_WithCsvFileContaining1000000Records() : void {
