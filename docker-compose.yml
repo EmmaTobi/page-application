@@ -26,6 +26,8 @@ services:
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
     depends_on:
       - database
+    networks:
+      - app
 
   caddy:
     build:
@@ -55,6 +57,8 @@ services:
       - target: 443
         published: ${HTTP3_PORT:-443}
         protocol: udp
+    networks:
+      - app
 
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
 ###> symfony/mercure-bundle ###
@@ -63,7 +67,7 @@ services:
 ###> doctrine/doctrine-bundle ###
   database:
     image: mysql:8.0
-    container_name: database
+    container_name: mysql
     cap_add:
       - SYS_NICE
     restart: always
@@ -77,6 +81,8 @@ services:
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - app
 ###< doctrine/doctrine-bundle ###
 
 volumes:
@@ -86,6 +92,7 @@ volumes:
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
 
+networks:
+  app:
 ###> doctrine/doctrine-bundle ###
-  db-data:
 ###< doctrine/doctrine-bundle ###

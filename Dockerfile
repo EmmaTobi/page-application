@@ -47,6 +47,9 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY docker/php/conf.d/app.ini $PHP_INI_DIR/conf.d/
 COPY docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
 
+RUN docker-php-ext-install pdo_mysql; \
+	docker-php-ext-enable pdo_mysql;
+
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 RUN mkdir -p /var/run/php
 
